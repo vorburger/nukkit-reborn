@@ -4,5 +4,7 @@ Bundle-SymbolicName: nukkit-std-mcpe-0-14-3
 Bundle-Version: 1.0.0.SNAPSHOT
 Import-Package: org.nukkitmc.nukkit.core.io,
  org.osgi.framework,
- org.nukkitmc.nukkitstd.mcpe.general
-Bundle-Activator: org.nukkitmc.nukkitstd.mcpe.v0_14_3.Activator
+ org.nukkitmc.nukkitstd.mcpe.general,
+ org.nukkitmc.nukkitstd.minecraft,
+ org.osgi.util.tracker
+Bundle-Activator: org.nukkitmc.nukkitstd.mcpe.v0_14_3.internal.Activator

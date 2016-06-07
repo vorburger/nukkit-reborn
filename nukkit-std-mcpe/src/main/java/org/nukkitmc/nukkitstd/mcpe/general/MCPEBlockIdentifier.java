@@ -10,7 +10,7 @@ public class MCPEBlockIdentifier implements BlockIdentifier {
     private int intId;
     private int intMeta;
 
-    MCPEBlockIdentifier(int intId, int intMeta){
+    public MCPEBlockIdentifier(int intId, int intMeta){
         this.intId = intId;
         this.intMeta = intMeta;
     }
@@ -18,7 +18,7 @@ public class MCPEBlockIdentifier implements BlockIdentifier {
     @Override
     public String asStringId() {
         //Minecraft PE does not use string id at present.
-        return "";
+        return null;
     }
 
     @Override

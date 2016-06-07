@@ -3,4 +3,6 @@ Bundle-ManifestVersion: 4
 Bundle-SymbolicName: nukkit-std-minecraft
 Bundle-Version: 1.0.0.SNAPSHOT
 Export-Package: org.nukkitmc.nukkitstd.minecraft;
-Import-Package: org.nukkitmc.nukkit.core.io
+Import-Package: org.nukkitmc.nukkit.core.io,
+ org.osgi.framework
+Bundle-Activator: org.nukkitmc.nukkitstd.minecraft.internal.Activator
