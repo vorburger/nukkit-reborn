@@ -1,4 +1,4 @@
-package org.nukkitmc.nukkitstd.mcpe.general;
+package org.nukkitmc.nukkitstd.mcpe.general.io;
 
 import org.nukkitmc.nukkit.core.io.ClientSendable;
 

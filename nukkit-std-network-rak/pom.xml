@@ -11,6 +11,13 @@
 
     <artifactId>nukkit-std-network-rak</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+    <dependencies>
+        <dependency>
+            <groupId>org.nukkitmc</groupId>
+            <artifactId>nukkit-core</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 
 </project>

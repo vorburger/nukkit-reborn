@@ -32,6 +32,7 @@ public class UDPServerSocket {
         } catch (IOException e) {
             //this.logger.critical("**** FAILED TO BIND TO " + interfaz + ":" + port + "!");
             //this.logger.critical("Perhaps a server is already running on that port?");
+            //// TODO: 2016/6/8 LOGGER
             System.exit(1);
         }
     }

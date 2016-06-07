@@ -60,9 +60,6 @@ public class SessionManager {
     public InetSocketAddress getSocketAddress() {
         return this.server.getSocketAddress();
     }
-    /*public ThreadedLogger getLogger() {
-        return this.server.getLogger();
-    }*/
 
     public void run() throws Exception {
         this.tickProcessor();

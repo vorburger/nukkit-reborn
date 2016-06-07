@@ -7,8 +7,16 @@ public interface Client {
 
     ClientManager getClientManager();
 
-    void send(ClientSendable msg);
+    SourceInterface getSourceInterface();
 
-    void close(String reason);
+    ClientIdentifier getClientIdentifier();
+
+    default void send(ClientSendable data) {
+        getSourceInterface().send(this, data);
+    }
+
+    default void close(String reason) {
+        getSourceInterface().close(this, reason);
+    }
 
 }
