@@ -1,4 +1,4 @@
-package org.nukkitmc.nukkit.core.gaming;
+package org.nukkitmc.nukkitstd.mcpe.general;
 
 import org.nukkitmc.nukkit.core.io.Client;
 

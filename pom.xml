@@ -12,6 +12,7 @@
         <module>nukkit-core</module>
         <module>nukkit-math</module>
         <module>nukkit-std-network-rak</module>
+        <module>nukkit-std-mcpe</module>
     </modules>
     
     <properties>

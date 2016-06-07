@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 4
+Bundle-SymbolicName: nukkit-std-mcpe
+Bundle-Version: 1.0.0.SNAPSHOT
+Import-Package: org.nukkitmc.nukkit.core.io,
+ org.osgi.framework
+Bundle-Activator: org.nukkitmc.nukkitstd.mcpe.general.internal.Activator
