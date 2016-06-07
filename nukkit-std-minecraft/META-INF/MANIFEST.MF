@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 4
+Bundle-SymbolicName: nukkit-std-minecraft
+Bundle-Version: 1.0.0.SNAPSHOT
+Export-Package: org.nukkitmc.nukkitstd.minecraft;
+Import-Package: org.nukkitmc.nukkit.core.io

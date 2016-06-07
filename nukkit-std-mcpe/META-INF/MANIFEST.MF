@@ -2,6 +2,8 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 4
 Bundle-SymbolicName: nukkit-std-mcpe
 Bundle-Version: 1.0.0.SNAPSHOT
-Import-Package: org.nukkitmc.nukkit.core.io,
- org.osgi.framework
 Bundle-Activator: org.nukkitmc.nukkitstd.mcpe.general.internal.Activator
+Export-Package: org.nukkitmc.nukkitstd.mcpe.general;
+Import-Package: org.nukkitmc.nukkit.core.io,
+ org.osgi.framework,
+ org.nukkitmc.nukkitstd.minecraft

@@ -13,6 +13,8 @@
         <module>nukkit-math</module>
         <module>nukkit-std-network-rak</module>
         <module>nukkit-std-mcpe</module>
+        <module>nukkit-std-mcpe-0-14-3</module>
+        <module>nukkit-std-minecraft</module>
     </modules>
     
     <properties>

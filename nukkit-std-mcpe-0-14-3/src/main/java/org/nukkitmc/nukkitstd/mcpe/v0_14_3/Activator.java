@@ -1,12 +1,10 @@
-package org.nukkitmc.nukkitstd.mcpe.general.internal;
+package org.nukkitmc.nukkitstd.mcpe.v0_14_3;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
-import java.util.Hashtable;
-
 /**
- * Created by Mulan Lin('Snake1999') on 2016/6/7 10:45.
+ * Created by Mulan Lin('Snake1999') on 2016/6/7 12:35.
  */
 public class Activator implements BundleActivator {
     @Override

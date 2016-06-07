@@ -9,8 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>nukkit-std-mcpe</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <artifactId>nukkit-std-mcpe-0-14-3</artifactId>
+    <version>2.0.0-SNAPSHOT</version>
     <dependencies>
         <dependency>
             <groupId>org.nukkitmc</groupId>
@@ -19,7 +19,7 @@
         </dependency>
         <dependency>
             <groupId>org.nukkitmc</groupId>
-            <artifactId>nukkit-std-minecraft</artifactId>
+            <artifactId>nukkit-std-mcpe</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
