@@ -1,5 +1,4 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 4
-Bundle-SymbolicName: nukkit-math
+Bundle-SymbolicName: nukkit-std-network-rak
 Bundle-Version: 1.0.0.SNAPSHOT
-Export-Package: org.nukkitmc.nukkit.math;

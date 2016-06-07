@@ -1,6 +1,4 @@
-package org.nukkitmc.nukkit.core;
-
-import org.nukkitmc.nukkit.core.annotation.NukkitAPI;
+package org.nukkitmc.nukkit.core.gaming;
 
 /**
  * Created by Mulan Lin('Snake1999') on 2016/6/7 9:38.

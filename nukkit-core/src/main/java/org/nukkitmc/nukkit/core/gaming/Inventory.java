@@ -1,4 +1,4 @@
-package org.nukkitmc.nukkit.core;
+package org.nukkitmc.nukkit.core.gaming;
 
 /**
  * Created by Mulan Lin('Snake1999') on 2016/6/7 9:57.

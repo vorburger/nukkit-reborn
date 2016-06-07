@@ -1,4 +1,4 @@
-package org.nukkitmc.nukkit.core;
+package org.nukkitmc.nukkit.core.gaming;
 
 import org.nukkitmc.nukkit.core.annotation.NukkitAPI;
 
