@@ -6,5 +6,7 @@ Import-Package: org.nukkitmc.nukkit.core.io,
  org.osgi.framework,
  org.nukkitmc.nukkitstd.mcpe.general,
  org.nukkitmc.nukkitstd.minecraft,
- org.osgi.util.tracker
+ org.osgi.util.tracker,
+ org.nukkitmc.nukkitstd.rak,
+ org.nukkitmc.nukkit.math
 Bundle-Activator: org.nukkitmc.nukkitstd.mcpe.v0_14_3.internal.Activator

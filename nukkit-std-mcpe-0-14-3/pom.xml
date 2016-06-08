@@ -22,6 +22,11 @@
             <artifactId>nukkit-std-mcpe</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>org.nukkitmc</groupId>
+            <artifactId>nukkit-std-network-rak</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 

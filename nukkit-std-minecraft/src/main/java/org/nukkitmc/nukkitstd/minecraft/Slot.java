@@ -9,6 +9,6 @@ public interface Slot {
 
     int getItemCount();
 
-    EnchantmentEntry[] getEnchantments();
+    //EnchantmentEntry[] getEnchantments();
 
 }
