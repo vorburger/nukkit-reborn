@@ -1,5 +1,7 @@
 package org.nukkitmc.nukkitstd.mcpe.v0_14_3.network.protocol;
 
+import org.nukkitmc.nukkit.math.ChunkVector;
+
 /**
  * author: MagicDroidX
  * Nukkit Project
@@ -15,8 +17,9 @@ public class FullChunkDataPacket extends DataPacket {
         return NETWORK_ID;
     }
 
-    public int chunkX;
-    public int chunkZ;
+    /*public int chunkX;
+    public int chunkZ;*/
+    public ChunkVector vector;
     public byte order = ORDER_COLUMNS;
     public byte[] data;
 
@@ -28,8 +31,9 @@ public class FullChunkDataPacket extends DataPacket {
     @Override
     public void encode() {
         this.reset();
-        this.putInt(this.chunkX);
-        this.putInt(this.chunkZ);
+        /*this.putInt(this.chunkX);
+        this.putInt(this.chunkZ);*/
+        this.putChunkVector(vector);
         this.putByte(this.order);
         this.putInt(this.data.length);
         this.put(this.data);

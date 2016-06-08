@@ -16,7 +16,7 @@ public class PlayerInputPacket extends DataPacket {
     @Override
     public void decode() {
         this.motionX = this.getFloat();
-        this.motionY = this.getFloat();
+        this.motionY = this.getFloat();      //// TODO: 2016/6/8 what's this?
         int flags = this.getByte();
         this.jumping = (flags & 0x80) > 0;
         this.sneaking = (flags & 0x40) > 0;

@@ -33,7 +33,7 @@ class WrappedRakServer extends RakNetServer implements SourceInterface, ServerIn
     public Integer send(Client client, ClientSendable sendable) {
         if (!(sendable instanceof DataPacket)) return null;
         DataPacket packet = (DataPacket) sendable;
-        return send0(client, packet, false); // TODO: 2016/6/8  
+        return null;//send0(client, packet, false); // TODO: 2016/6/8
     }
 /*
     private Integer send0(Client client, DataPacket packet, boolean immediate) {
@@ -82,7 +82,7 @@ class WrappedRakServer extends RakNetServer implements SourceInterface, ServerIn
 
         return pk.identifierACK;
     }
-/*
+*/
     @Override
     public void close(Client client) {
 

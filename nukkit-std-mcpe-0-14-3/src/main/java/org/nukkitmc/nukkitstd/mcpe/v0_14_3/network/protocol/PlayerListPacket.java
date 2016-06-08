@@ -1,6 +1,6 @@
 package org.nukkitmc.nukkitstd.mcpe.v0_14_3.network.protocol;
 
-import cn.nukkit.entity.data.Skin;
+import org.nukkitmc.nukkitstd.minecraft.Skin;
 
 import java.util.UUID;
 

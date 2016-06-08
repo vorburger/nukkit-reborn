@@ -12,7 +12,7 @@ public class ExplodePacket extends DataPacket {
 
     public float x;
     public float y;
-    public float z;
+    public float z;   //// TODO: 2016/6/8 simplify these?
     public float radius;
     public Vector3[] records = new Vector3[0];
 

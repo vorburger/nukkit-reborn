@@ -1,11 +1,9 @@
 package org.nukkitmc.nukkitstd.mcpe.v0_14_3.network.protocol;
 
-import org.nukkitmc.nukkit.math.EntityRotation;
-import org.nukkitmc.nukkit.math.EntityVector;
-import org.nukkitmc.nukkit.math.HeadedEntityRotation;
-import org.nukkitmc.nukkit.math.Velocity;
+import org.nukkitmc.nukkit.math.*;
 import org.nukkitmc.nukkitstd.mcpe.general.MCPEItemIdentifier;
 import org.nukkitmc.nukkitstd.minecraft.ItemIdentifier;
+import org.nukkitmc.nukkitstd.minecraft.Skin;
 import org.nukkitmc.nukkitstd.minecraft.Slot;
 
 /**
@@ -20,10 +18,53 @@ public abstract class DataPacket extends org.nukkitmc.nukkitstd.rak.DataPacket {
 
     /** Package-local binary helpers **/
 
+    void putChunkVector(ChunkVector vector) {
+        this.putInt(vector.getChunkX());
+        this.putInt(vector.getChunkZ());
+    }
+
+    void putBlockVector(BlockVector vector) {
+        this.putInt(vector.getBlockX());
+        this.putInt(vector.getBlockY());
+        this.putInt(vector.getBlockZ());
+    }
+
+    BlockVector getBlockVector(){
+        int x = this.getInt();
+        int y = this.getInt();
+        int z = this.getInt();
+        return new BlockVector() {
+            @Override
+            public int getBlockX() {return x;}
+
+            @Override
+            public int getBlockY() {return y;}
+
+            @Override
+            public int getBlockZ() {return z;}
+        };
+    }
+
     void putEntityVector(EntityVector vector) {
         this.putFloat(vector.getEntityX());
         this.putFloat(vector.getEntityY());
         this.putFloat(vector.getEntityZ());
+    }
+
+    EntityVector getEntityVector(){
+        float x = this.getFloat();
+        float y = this.getFloat();
+        float z = this.getFloat();
+        return new EntityVector() {
+            @Override
+            public float getEntityX() {return x;}
+
+            @Override
+            public float getEntityY() {return y;}
+
+            @Override
+            public float getEntityZ() {return z;}
+        };
     }
 
     void putVelocity(Velocity velocity) {
@@ -36,6 +77,22 @@ public abstract class DataPacket extends org.nukkitmc.nukkitstd.rak.DataPacket {
         this.putFloat(rotation.getYaw());
         this.putFloat(rotation.getHeadYaw());
         this.putFloat(rotation.getPitch());
+    }
+
+    HeadedEntityRotation getHeadedEntityRotation() {
+        float yaw = this.getFloat();
+        float headYaw = this.getFloat();
+        float pitch = this.getFloat();
+        return new HeadedEntityRotation() {
+            @Override
+            public float getPitch() {return pitch;}
+
+            @Override
+            public float getYaw() {return yaw;}
+
+            @Override
+            public float getHeadYaw() {return headYaw;}
+        };
     }
 
     void putEntityRotation(EntityRotation rotation) {
@@ -51,7 +108,7 @@ public abstract class DataPacket extends org.nukkitmc.nukkitstd.rak.DataPacket {
         ItemIdentifier id = slot.getItemIdentifier();
         this.putShort(id.asIntegerId());
         this.putByte((byte) (slot.getItemCount() & 0xff));
-        this.putShort(id.asIntegerMeta()); //this.putShort(!item.hasMeta() ? -1 : item.getDamage());
+        this.putShort(id.asIntegerMeta()); //*todo: verify: this.putShort(!item.hasMeta() ? -1 : item.getDamage());
 
         // TODO: 2016/6/8 NBT
         //byte[] nbt = item.getCompoundTag();
@@ -72,25 +129,27 @@ public abstract class DataPacket extends org.nukkitmc.nukkitstd.rak.DataPacket {
         byte[] nbt = new byte[0];
         if (nbtLen > 0) nbt = this.get(nbtLen);
         // TODO: 2016/6/8 NBT
-        //return Item.get(id, data, cnt, nbt);
-        return new IdCntSlot(id, data, cnt);
+        return new IdCntSlot(id, data, cnt);    //OLD CODE: return Item.get(id, data, cnt, nbt);
     }
 
-    // TODO: 2016/6/8 SKIN
-    /*
-
-    public void putSkin(Skin skin) {
-        this.putString(skin.getModel());
-        this.putShort(skin.getData().length);
-        this.put(skin.getData());
+    void putSkin(Skin skin) {
+        this.putString(skin.getSkinModel());
+        this.putShort(skin.getSkinData().length);
+        this.put(skin.getSkinData());
     }
 
-    public Skin getSkin() {
+    Skin getSkin() {
         String modelId = this.getString();
         byte[] skinData = this.get(this.getShort());
-        return new Skin(skinData, modelId);
+        return new Skin(){
+            @Override
+            public byte[] getSkinData() {return skinData;}
+
+            @Override
+            public String getSkinModel() {return modelId;}
+        };
     }
-     */
+
 
     private class IdCntSlot implements Slot {
         private ItemIdentifier id;

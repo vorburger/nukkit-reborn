@@ -1,5 +1,7 @@
 package org.nukkitmc.nukkitstd.mcpe.v0_14_3.network.protocol;
 
+import org.nukkitmc.nukkit.math.BlockVector;
+
 /**
  * @author Nukkit Project Team
  */
@@ -8,9 +10,11 @@ public class AddPaintingPacket extends DataPacket {
     public static final byte NETWORK_ID = ProtocolInfo.ADD_PAINTING_PACKET;
 
     public long eid;
-    public int x;
-    public int y;
-    public int z;
+                    /*
+                    public int x;
+                    public int y;
+                    public int z;*/
+    public BlockVector vector;
     public int direction;
     public String title;
 
@@ -23,9 +27,10 @@ public class AddPaintingPacket extends DataPacket {
     public void encode() {
         this.reset();
         this.putLong(eid);
-        this.putInt(x);
-        this.putInt(y);
-        this.putInt(z);
+                        /*this.putInt(x);
+                        this.putInt(y);
+                        this.putInt(z);*/
+        this.putBlockVector(vector);
         this.putInt(direction);
         this.putString(title);
     }

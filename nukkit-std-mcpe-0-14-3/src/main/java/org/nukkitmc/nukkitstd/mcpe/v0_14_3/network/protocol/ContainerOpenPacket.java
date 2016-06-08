@@ -1,5 +1,7 @@
 package org.nukkitmc.nukkitstd.mcpe.v0_14_3.network.protocol;
 
+import org.nukkitmc.nukkit.math.BlockVector;
+
 /**
  * author: MagicDroidX
  * Nukkit Project
@@ -15,9 +17,10 @@ public class ContainerOpenPacket extends DataPacket {
     public byte windowid;
     public byte type;
     public int slots;
-    public int x;
+    /*public int x;
     public int y;
-    public int z;
+    public int z;*/
+    public BlockVector vector;
     public long entityId = -1;
 
     @Override
@@ -31,9 +34,10 @@ public class ContainerOpenPacket extends DataPacket {
         this.putByte(this.windowid);
         this.putByte(this.type);
         this.putShort(this.slots);
-        this.putInt(this.x);
+        /*this.putInt(this.x);
         this.putInt(this.y);
-        this.putInt(this.z);
+        this.putInt(this.z);*/
+        this.putBlockVector(vector);
         this.putLong(this.entityId);
     }
 }

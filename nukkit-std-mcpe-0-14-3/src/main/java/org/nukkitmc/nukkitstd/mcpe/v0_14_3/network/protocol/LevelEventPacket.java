@@ -66,7 +66,7 @@ public class LevelEventPacket extends DataPacket {
     public int evid;
     public float x;
     public float y;
-    public float z;
+    public float z;      //// TODO: 2016/6/8 simplify these?
     public int data;
 
     @Override

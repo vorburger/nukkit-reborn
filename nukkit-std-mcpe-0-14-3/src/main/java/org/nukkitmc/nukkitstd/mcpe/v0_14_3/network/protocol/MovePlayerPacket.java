@@ -1,5 +1,8 @@
 package org.nukkitmc.nukkitstd.mcpe.v0_14_3.network.protocol;
 
+import org.nukkitmc.nukkit.math.EntityVector;
+import org.nukkitmc.nukkit.math.HeadedEntityRotation;
+
 /**
  * Created on 15-10-14.
  */
@@ -12,24 +15,29 @@ public class MovePlayerPacket extends DataPacket {
     public static final byte MODE_ROTATION = 2;
 
     public long eid;
-    public float x;
+    /*public float x;
     public float y;
     public float z;
     public float yaw;
     public float headYaw;
-    public float pitch;
+    public float pitch;*/
+    public EntityVector vector;
+    public HeadedEntityRotation rotation;
     public byte mode = MODE_NORMAL;
     public boolean onGround;
 
     @Override
     public void decode() {
         eid = getLong();
+        /*
         x = getFloat();
         y = getFloat();
         z = getFloat();
         yaw = getFloat();
         headYaw = getFloat();
-        pitch = getFloat();
+        pitch = getFloat();*/
+        vector = getEntityVector();
+        rotation = getHeadedEntityRotation();
         mode = (byte) getByte();
         onGround = getByte() > 0;
     }
@@ -38,12 +46,14 @@ public class MovePlayerPacket extends DataPacket {
     public void encode() {
         reset();
         putLong(eid);
-        putFloat(x);
+        /*putFloat(x);
         putFloat(y);
         putFloat(z);
         putFloat(yaw);
         putFloat(headYaw);
-        putFloat(pitch);
+        putFloat(pitch);*/
+        putEntityVector(vector);
+        putHeadedEntityRotation(rotation);
         putByte(mode);
         putByte(onGround ? (byte) 1 : 0);
     }

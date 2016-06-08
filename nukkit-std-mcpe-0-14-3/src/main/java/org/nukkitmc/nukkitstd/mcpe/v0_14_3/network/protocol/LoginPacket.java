@@ -1,6 +1,6 @@
 package org.nukkitmc.nukkitstd.mcpe.v0_14_3.network.protocol;
 
-//import cn.nukkit.entity.data.Skin;
+import org.nukkitmc.nukkitstd.minecraft.Skin;
 
 import java.util.UUID;
 
@@ -22,7 +22,7 @@ public class LoginPacket extends DataPacket {
     public String serverAddress;
     public String clientSecret;
 
-    //todo public Skin skin;
+    public Skin skin;
 
     @Override
     public byte pid() {
@@ -43,8 +43,7 @@ public class LoginPacket extends DataPacket {
         this.clientUUID = this.getUUID();
         this.serverAddress = this.getString();
         this.clientSecret = this.getString();
-
-        //todo this.skin = this.getSkin();
+        this.skin = this.getSkin();
     }
 
 
