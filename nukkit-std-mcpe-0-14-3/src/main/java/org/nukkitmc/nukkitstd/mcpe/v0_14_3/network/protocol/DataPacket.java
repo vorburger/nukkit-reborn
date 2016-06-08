@@ -1,7 +1,7 @@
 package org.nukkitmc.nukkitstd.mcpe.v0_14_3.network.protocol;
 
 import org.nukkitmc.nukkit.math.*;
-import org.nukkitmc.nukkitstd.mcpe.general.MCPEItemIdentifier;
+import org.nukkitmc.nukkitstd.mcpe.v0_14_3.internal.MCPEItemIdentifier;
 import org.nukkitmc.nukkitstd.minecraft.ItemIdentifier;
 import org.nukkitmc.nukkitstd.minecraft.Skin;
 import org.nukkitmc.nukkitstd.minecraft.Slot;

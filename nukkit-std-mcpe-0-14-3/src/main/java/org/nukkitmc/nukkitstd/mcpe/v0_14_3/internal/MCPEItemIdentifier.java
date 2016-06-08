@@ -1,4 +1,4 @@
-package org.nukkitmc.nukkitstd.mcpe.general;
+package org.nukkitmc.nukkitstd.mcpe.v0_14_3.internal;
 
 import org.nukkitmc.nukkitstd.minecraft.ItemIdentifier;
 

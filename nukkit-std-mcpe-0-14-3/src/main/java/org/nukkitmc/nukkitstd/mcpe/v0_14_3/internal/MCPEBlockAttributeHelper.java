@@ -1,6 +1,5 @@
 package org.nukkitmc.nukkitstd.mcpe.v0_14_3.internal;
 
-import org.nukkitmc.nukkitstd.mcpe.general.MCPEBlockIdentifier;
 import org.nukkitmc.nukkitstd.minecraft.BlockAttribute;
 import org.nukkitmc.nukkitstd.minecraft.BlockAttributeMapper;
 import org.nukkitmc.nukkitstd.minecraft.BlockIdentifier;
