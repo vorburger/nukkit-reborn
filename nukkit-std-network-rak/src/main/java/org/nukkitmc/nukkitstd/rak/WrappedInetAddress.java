@@ -1,4 +1,4 @@
-package org.nukkitmc.nukkitstd.rak.internal;
+package org.nukkitmc.nukkitstd.rak;
 
 import org.nukkitmc.nukkit.core.io.ClientIdentifier;
 

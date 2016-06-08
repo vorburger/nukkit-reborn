@@ -10,6 +10,11 @@ import cn.nukkit.utils.BinaryStream;
 public abstract class DataPacket extends BinaryStream implements Cloneable {
 
     private boolean encoded = false;
+    private int channel;
+    byte reliability;
+    Integer orderIndex = null;
+    Integer orderChannel = null;
+    EncapsulatedPacket encapsulatedPacket;
 
     public abstract byte pid();
 
@@ -42,4 +47,15 @@ public abstract class DataPacket extends BinaryStream implements Cloneable {
         }
     }
 
+    boolean isEncoded() {
+        return encoded;
+    }
+
+    public void setChannel(int channel) {
+        this.channel = channel;
+    }
+
+    public int getChannel() {
+        return channel;
+    }
 }
