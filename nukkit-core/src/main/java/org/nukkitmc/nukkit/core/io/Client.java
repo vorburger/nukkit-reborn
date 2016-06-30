@@ -15,8 +15,8 @@ public interface Client {
         getSourceInterface().send(this, data);
     }
 
-    default void close(String reason) {
+    /*default void close(String reason) {
         getSourceInterface().close(this, reason);
-    }
+    }*/
 
 }

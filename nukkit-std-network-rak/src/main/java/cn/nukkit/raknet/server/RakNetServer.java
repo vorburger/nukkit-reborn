@@ -13,10 +13,10 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class RakNetServer extends Thread {
     protected InetSocketAddress address;
 
-    protected ConcurrentLinkedQueue<byte[]> externalQueue;
-    protected ConcurrentLinkedQueue<byte[]> internalQueue;
+    private ConcurrentLinkedQueue<byte[]> externalQueue;
+    private ConcurrentLinkedQueue<byte[]> internalQueue;
 
-    protected boolean shutdown;
+    private boolean shutdown;
 
     public RakNetServer(InetSocketAddress address) {
         this.address = address;
@@ -27,7 +27,7 @@ public class RakNetServer extends Thread {
         this.start();
     }
 
-    public InetSocketAddress getSocketAddress() {
+    InetSocketAddress getSocketAddress() {
         return address;
     }
 
@@ -35,7 +35,7 @@ public class RakNetServer extends Thread {
         return shutdown;
     }
 
-    public void shutdown() {
+    void shutdown() {
         this.shutdown = true;
     }
 
@@ -47,19 +47,19 @@ public class RakNetServer extends Thread {
         return internalQueue;
     }
 
-    public void pushMainToThreadPacket(byte[] data) {
+    void pushMainToThreadPacket(byte[] data) {
         this.internalQueue.add(data);
     }
 
-    public byte[] readMainToThreadPacket() {
+    byte[] readMainToThreadPacket() {
         return this.internalQueue.poll();
     }
 
-    public void pushThreadToMainPacket(byte[] data) {
+    void pushThreadToMainPacket(byte[] data) {
         this.externalQueue.add(data);
     }
 
-    public byte[] readThreadToMainPacket() {
+    byte[] readThreadToMainPacket() {
         return this.externalQueue.poll();
     }
 

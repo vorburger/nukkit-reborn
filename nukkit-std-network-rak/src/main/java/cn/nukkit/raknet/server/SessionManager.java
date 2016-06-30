@@ -5,13 +5,14 @@ import cn.nukkit.raknet.protocol.EncapsulatedPacket;
 import cn.nukkit.raknet.protocol.Packet;
 import cn.nukkit.raknet.protocol.packet.*;
 import cn.nukkit.utils.Binary;
-//import cn.nukkit.utils.ThreadedLogger;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+
+//import cn.nukkit.utils.ThreadedLogger;
 
 /**
  * author: MagicDroidX
@@ -297,88 +298,85 @@ public class SessionManager {
 
     public boolean receiveStream() throws Exception {
         byte[] packet = this.server.readMainToThreadPacket();
-        if (packet != null && packet.length > 0) {
-            byte id = packet[0];
-            int offset = 1;
-            switch (id) {
-                case RakNet.PACKET_ENCAPSULATED:
-                    int len = packet[offset++];
-                    String identifier = new String(Binary.subBytes(packet, offset, len), StandardCharsets.UTF_8);
-                    offset += len;
-                    if (this.sessions.containsKey(identifier)) {
-                        byte flags = packet[offset++];
-                        byte[] buffer = Binary.subBytes(packet, offset);
-                        this.sessions.get(identifier).addEncapsulatedToQueue(EncapsulatedPacket.fromBinary(buffer, true), flags);
-                    } else {
-                        this.streamInvalid(identifier);
-                    }
-                    break;
-                case RakNet.PACKET_RAW:
-                    len = packet[offset++];
-                    String address = new String(Binary.subBytes(packet, offset, len), StandardCharsets.UTF_8);
-                    offset += len;
-                    int port = Binary.readShort(Binary.subBytes(packet, offset, 2));
-                    offset += 2;
-                    byte[] payload = Binary.subBytes(packet, offset);
-                    this.socket.writePacket(payload, address, port);
-                    break;
-                case RakNet.PACKET_CLOSE_SESSION:
-                    len = packet[offset++];
-                    identifier = new String(Binary.subBytes(packet, offset, len), StandardCharsets.UTF_8);
-                    if (this.sessions.containsKey(identifier)) {
-                        this.removeSession(this.sessions.get(identifier));
-                    } else {
-                        this.streamInvalid(identifier);
-                    }
-                    break;
-                case RakNet.PACKET_INVALID_SESSION:
-                    len = packet[offset++];
-                    identifier = new String(Binary.subBytes(packet, offset, len), StandardCharsets.UTF_8);
-                    if (this.sessions.containsKey(identifier)) {
-                        this.removeSession(this.sessions.get(identifier));
-                    }
-                    break;
-                case RakNet.PACKET_SET_OPTION:
-                    len = packet[offset++];
-                    String name = new String(Binary.subBytes(packet, offset, len), StandardCharsets.UTF_8);
-                    offset += len;
-                    String value = new String(Binary.subBytes(packet, offset), StandardCharsets.UTF_8);
-                    switch (name) {
-                        case "name":
-                            this.name = value;
-                            break;
-                        case "portChecking":
-                            this.portChecking = Boolean.valueOf(value);
-                            break;
-                        case "packetLimit":
-                            this.packetLimit = Integer.valueOf(value);
-                            break;
-                    }
-                    break;
-                case RakNet.PACKET_BLOCK_ADDRESS:
-                    len = packet[offset++];
-                    address = new String(Binary.subBytes(packet, offset, len), StandardCharsets.UTF_8);
-                    offset += len;
-                    int timeout = Binary.readInt(Binary.subBytes(packet, offset, 4));
-                    this.blockAddress(address, timeout);
-                    break;
-                case RakNet.PACKET_SHUTDOWN:
-                    for (Session session : new ArrayList<>(this.sessions.values())) {
-                        this.removeSession(session);
-                    }
+        if (packet == null || packet.length == 0) return false;
+        byte id = packet[0];
+        int offset = 1;
+        switch (id) {
+            case RakNet.PACKET_ENCAPSULATED:
+                int len = packet[offset++];
+                String identifier = new String(Binary.subBytes(packet, offset, len), StandardCharsets.UTF_8);
+                offset += len;
+                if (this.sessions.containsKey(identifier)) {
+                    byte flags = packet[offset++];
+                    byte[] buffer = Binary.subBytes(packet, offset);
+                    this.sessions.get(identifier).addEncapsulatedToQueue(EncapsulatedPacket.fromBinary(buffer, true), flags);
+                } else {
+                    this.streamInvalid(identifier);
+                }
+                break;
+            case RakNet.PACKET_RAW:
+                len = packet[offset++];
+                String address = new String(Binary.subBytes(packet, offset, len), StandardCharsets.UTF_8);
+                offset += len;
+                int port = Binary.readShort(Binary.subBytes(packet, offset, 2));
+                offset += 2;
+                byte[] payload = Binary.subBytes(packet, offset);
+                this.socket.writePacket(payload, address, port);
+                break;
+            case RakNet.PACKET_CLOSE_SESSION:
+                len = packet[offset++];
+                identifier = new String(Binary.subBytes(packet, offset, len), StandardCharsets.UTF_8);
+                if (this.sessions.containsKey(identifier)) {
+                    this.removeSession(this.sessions.get(identifier));
+                } else {
+                    this.streamInvalid(identifier);
+                }
+                break;
+            case RakNet.PACKET_INVALID_SESSION:
+                len = packet[offset++];
+                identifier = new String(Binary.subBytes(packet, offset, len), StandardCharsets.UTF_8);
+                if (this.sessions.containsKey(identifier)) {
+                    this.removeSession(this.sessions.get(identifier));
+                }
+                break;
+            case RakNet.PACKET_SET_OPTION:
+                len = packet[offset++];
+                String name = new String(Binary.subBytes(packet, offset, len), StandardCharsets.UTF_8);
+                offset += len;
+                String value = new String(Binary.subBytes(packet, offset), StandardCharsets.UTF_8);
+                switch (name) {
+                    case "name":
+                        this.name = value;
+                        break;
+                    case "portChecking":
+                        this.portChecking = Boolean.valueOf(value);
+                        break;
+                    case "packetLimit":
+                        this.packetLimit = Integer.valueOf(value);
+                        break;
+                }
+                break;
+            case RakNet.PACKET_BLOCK_ADDRESS:
+                len = packet[offset++];
+                address = new String(Binary.subBytes(packet, offset, len), StandardCharsets.UTF_8);
+                offset += len;
+                int timeout = Binary.readInt(Binary.subBytes(packet, offset, 4));
+                this.blockAddress(address, timeout);
+                break;
+            case RakNet.PACKET_SHUTDOWN:
+                for (Session session : new ArrayList<>(this.sessions.values())) {
+                    this.removeSession(session);
+                }
 
-                    this.socket.close();
-                    this.shutdown = true;
-                    break;
-                case RakNet.PACKET_EMERGENCY_SHUTDOWN:
-                    this.shutdown = true;
-                default:
-                    return false;
-            }
-            return true;
+                this.socket.close();
+                this.shutdown = true;
+                break;
+            case RakNet.PACKET_EMERGENCY_SHUTDOWN:
+                this.shutdown = true;
+            default:
+                return false;
         }
-
-        return false;
+        return true;
     }
 
     public void blockAddress(String address) {

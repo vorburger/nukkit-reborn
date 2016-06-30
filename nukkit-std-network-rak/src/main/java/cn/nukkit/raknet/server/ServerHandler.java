@@ -84,15 +84,11 @@ public class ServerHandler {
         synchronized (this) {
             try {
                 this.wait(20);
-            } catch (InterruptedException e) {
-                //ignore
-            }
+            } catch (InterruptedException ignore) {}
         }
         try {
             this.server.join();
-        } catch (InterruptedException e) {
-            //ignore
-        }
+        } catch (InterruptedException ignore) {}
     }
 
     public void emergencyShutdown() {
@@ -111,63 +107,60 @@ public class ServerHandler {
 
     public boolean handlePacket() {
         byte[] packet = this.server.readThreadToMainPacket();
-        if (packet != null && packet.length > 0) {
-            byte id = packet[0];
-            int offset = 1;
-            if (id == RakNet.PACKET_ENCAPSULATED) {
-                int len = packet[offset++];
-                String identifier = new String(Binary.subBytes(packet, offset, len), StandardCharsets.UTF_8);
-                offset += len;
-                int flags = packet[offset++];
-                byte[] buffer = Binary.subBytes(packet, offset);
-                this.instance.handleEncapsulated(identifier, EncapsulatedPacket.fromBinary(buffer, true), flags);
-            } else if (id == RakNet.PACKET_RAW) {
-                int len = packet[offset++];
-                String address = new String(Binary.subBytes(packet, offset, len), StandardCharsets.UTF_8);
-                offset += len;
-                int port = Binary.readShort(Binary.subBytes(packet, offset, 2)) & 0xffff;
-                offset += 2;
-                byte[] payload = Binary.subBytes(packet, offset);
-                this.instance.handleRaw(address, port, payload);
-            } else if (id == RakNet.PACKET_SET_OPTION) {
-                int len = packet[offset++];
-                String name = new String(Binary.subBytes(packet, offset, len), StandardCharsets.UTF_8);
-                offset += len;
-                String value = new String(Binary.subBytes(packet, offset), StandardCharsets.UTF_8);
-                this.instance.handleOption(name, value);
-            } else if (id == RakNet.PACKET_OPEN_SESSION) {
-                int len = packet[offset++];
-                String identifier = new String(Binary.subBytes(packet, offset, len), StandardCharsets.UTF_8);
-                offset += len;
-                len = packet[offset++];
-                String address = new String(Binary.subBytes(packet, offset, len), StandardCharsets.UTF_8);
-                offset += len;
-                int port = Binary.readShort(Binary.subBytes(packet, offset, 2)) & 0xffff;
-                offset += 2;
-                long clientID = Binary.readLong(Binary.subBytes(packet, offset, 8));
-                this.instance.openSession(identifier, address, port, clientID);
-            } else if (id == RakNet.PACKET_CLOSE_SESSION) {
-                int len = packet[offset++];
-                String identifier = new String(Binary.subBytes(packet, offset, len), StandardCharsets.UTF_8);
-                offset += len;
-                len = packet[offset++];
-                String reason = new String(Binary.subBytes(packet, offset, len), StandardCharsets.UTF_8);
-                this.instance.closeSession(identifier, reason);
-            } else if (id == RakNet.PACKET_INVALID_SESSION) {
-                int len = packet[offset++];
-                String identifier = new String(Binary.subBytes(packet, offset, len), StandardCharsets.UTF_8);
-                this.instance.closeSession(identifier, "Invalid session");
-            } else if (id == RakNet.PACKET_ACK_NOTIFICATION) {
-                int len = packet[offset++];
-                String identifier = new String(Binary.subBytes(packet, offset, len), StandardCharsets.UTF_8);
-                offset += len;
-                int identifierACK = Binary.readInt(Binary.subBytes(packet, offset, 4));
-                this.instance.notifyACK(identifier, identifierACK);
-            }
-            return true;
+        if (packet == null || packet.length == 0) return false;
+        byte id = packet[0];
+        int offset = 1;
+        if (id == RakNet.PACKET_ENCAPSULATED) {
+            int len = packet[offset++];
+            String identifier = new String(Binary.subBytes(packet, offset, len), StandardCharsets.UTF_8);
+            offset += len;
+            int flags = packet[offset++];
+            byte[] buffer = Binary.subBytes(packet, offset);
+            this.instance.handleEncapsulated(identifier, EncapsulatedPacket.fromBinary(buffer, true), flags);
+        } else if (id == RakNet.PACKET_RAW) {
+            int len = packet[offset++];
+            String address = new String(Binary.subBytes(packet, offset, len), StandardCharsets.UTF_8);
+            offset += len;
+            int port = Binary.readShort(Binary.subBytes(packet, offset, 2)) & 0xffff;
+            offset += 2;
+            byte[] payload = Binary.subBytes(packet, offset);
+            this.instance.handleRaw(address, port, payload);
+        } else if (id == RakNet.PACKET_SET_OPTION) {
+            int len = packet[offset++];
+            String name = new String(Binary.subBytes(packet, offset, len), StandardCharsets.UTF_8);
+            offset += len;
+            String value = new String(Binary.subBytes(packet, offset), StandardCharsets.UTF_8);
+            this.instance.handleOption(name, value);
+        } else if (id == RakNet.PACKET_OPEN_SESSION) {
+            int len = packet[offset++];
+            String identifier = new String(Binary.subBytes(packet, offset, len), StandardCharsets.UTF_8);
+            offset += len;
+            len = packet[offset++];
+            String address = new String(Binary.subBytes(packet, offset, len), StandardCharsets.UTF_8);
+            offset += len;
+            int port = Binary.readShort(Binary.subBytes(packet, offset, 2)) & 0xffff;
+            offset += 2;
+            long clientID = Binary.readLong(Binary.subBytes(packet, offset, 8));
+            this.instance.openSession(identifier, address, port, clientID);
+        } else if (id == RakNet.PACKET_CLOSE_SESSION) {
+            int len = packet[offset++];
+            String identifier = new String(Binary.subBytes(packet, offset, len), StandardCharsets.UTF_8);
+            offset += len;
+            len = packet[offset++];
+            String reason = new String(Binary.subBytes(packet, offset, len), StandardCharsets.UTF_8);
+            this.instance.closeSession(identifier, reason);
+        } else if (id == RakNet.PACKET_INVALID_SESSION) {
+            int len = packet[offset++];
+            String identifier = new String(Binary.subBytes(packet, offset, len), StandardCharsets.UTF_8);
+            this.instance.closeSession(identifier, "Invalid session");
+        } else if (id == RakNet.PACKET_ACK_NOTIFICATION) {
+            int len = packet[offset++];
+            String identifier = new String(Binary.subBytes(packet, offset, len), StandardCharsets.UTF_8);
+            offset += len;
+            int identifierACK = Binary.readInt(Binary.subBytes(packet, offset, 4));
+            this.instance.notifyACK(identifier, identifierACK);
         }
-
-        return false;
+        return true;
     }
 
 }

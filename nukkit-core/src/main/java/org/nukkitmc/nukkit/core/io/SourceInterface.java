@@ -5,11 +5,7 @@ package org.nukkitmc.nukkit.core.io;
  */
 public interface SourceInterface {
 
-    Integer send(Client client, ClientSendable packet);
-
-    void close(Client client);
-
-    void close(Client client, String reason);
+    void send(Client client, ClientSendable packet);
 
     void shutdown();
 
